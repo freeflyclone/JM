@@ -1,1 +1,7 @@
 *.vcxproj.user
+*.exe
+*.bsc
+*.pdb
+*.yuv
+*.264
+.vs/
