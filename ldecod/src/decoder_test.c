@@ -212,8 +212,8 @@ static int WriteOneFrame(DecodedPicList *pDecPic, int hFileOutput0, int hFileOut
  *    main function for JM decoder
  ***********************************************************************
  */
-//int main(int argc, char **argv)
-int JM_DecoderMain(int argc, char **argv)
+int main(int argc, char **argv)
+//int JM_DecoderMain(int argc, char **argv)
 {
   int iRet;
   DecodedPicList *pDecPicList;
@@ -236,7 +236,7 @@ int JM_DecoderMain(int argc, char **argv)
   iRet = OpenDecoder(&InputParams);
   if(iRet != DEC_OPEN_NOERR)
   {
-    fprintf(stderr, "Open encoder failed: 0x%x!\n", iRet);
+    fprintf(stderr, "Open decoder failed: 0x%x!\n", iRet);
     return -1; //failed;
   }
 
