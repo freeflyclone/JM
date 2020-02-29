@@ -22,7 +22,9 @@
 #include "input.h"
 #include "fast_memory.h"
 
-static void write_out_picture(VideoParameters *p_Vid, StorablePicture *p, int p_out);
+void (*write_out_picture)(VideoParameters*, StorablePicture*, int) = NULL;
+
+static void write_out_picture_orig(VideoParameters*, StorablePicture*, int);
 static void img2buf_byte   (imgpel** imgX, unsigned char* buf, int size_x, int size_y, int symbol_size_in_bytes, int crop_left, int crop_right, int crop_top, int crop_bottom, int iOutStride);
 static void img2buf_normal (imgpel** imgX, unsigned char* buf, int size_x, int size_y, int symbol_size_in_bytes, int crop_left, int crop_right, int crop_top, int crop_bottom, int iOutStride);
 static void img2buf_endian (imgpel** imgX, unsigned char* buf, int size_x, int size_y, int symbol_size_in_bytes, int crop_left, int crop_right, int crop_top, int crop_bottom, int iOutStride);
@@ -422,13 +424,16 @@ void write_picture(VideoParameters *p_Vid, StorablePicture *p, int p_out, int re
  */
 void write_picture(VideoParameters *p_Vid, StorablePicture *p, int p_out, int real_structure)
 {
-  write_out_picture(p_Vid, p, p_out);
+	if (write_out_picture)
+		write_out_picture(p_Vid, p, p_out);
+	else
+		write_out_picture_orig(p_Vid, p, p_out);
 }
 
 
 #endif
 
-static void allocate_p_dec_pic(VideoParameters *p_Vid, DecodedPicList *pDecPic, StorablePicture *p, int iLumaSize, int iFrameSize, int iLumaSizeX, int iLumaSizeY, int iChromaSizeX, int iChromaSizeY)
+void allocate_p_dec_pic(VideoParameters *p_Vid, DecodedPicList *pDecPic, StorablePicture *p, int iLumaSize, int iFrameSize, int iLumaSizeX, int iLumaSizeY, int iChromaSizeX, int iChromaSizeY)
 {
   int symbol_size_in_bytes = ((p_Vid->pic_unit_bitsize_on_disk+7) >> 3);
   
@@ -461,7 +466,7 @@ static void allocate_p_dec_pic(VideoParameters *p_Vid, DecodedPicList *pDecPic, 
 *    Output file
 ************************************************************************
 */
-static void write_out_picture(VideoParameters *p_Vid, StorablePicture *p, int p_out)
+static void write_out_picture_orig(VideoParameters *p_Vid, StorablePicture *p, int p_out)
 {
   InputParameters *p_Inp = p_Vid->p_Inp;
   DecodedPicList *pDecPic;

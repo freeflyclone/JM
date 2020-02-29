@@ -1016,6 +1016,8 @@ typedef struct inp_par
 
   int bDisplayDecParams;
   int dpb_plus[2];
+
+  void* p_ctx;
 } InputParameters;
 
 typedef struct old_slice_par
