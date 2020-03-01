@@ -213,7 +213,6 @@ static int WriteOneFrame(DecodedPicList *pDecPic, int hFileOutput0, int hFileOut
  ***********************************************************************
  */
 int main(int argc, char **argv)
-//int JM_DecoderMain(int argc, char **argv)
 {
   int iRet;
   DecodedPicList *pDecPicList;

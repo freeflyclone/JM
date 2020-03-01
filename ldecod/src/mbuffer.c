@@ -1843,7 +1843,8 @@ void store_picture_in_dpb(DecodedPictureBuffer *p_Dpb, StorablePicture* p)
   }
   
   // then output frames until one can be removed
-  while (p_Dpb->used_size == p_Dpb->size)
+  //while (p_Dpb->used_size == p_Dpb->size)  /* EJM 3/1/2020 */
+  if (p_Dpb->used_size > 0)
   {
     // non-reference frames may be output directly
     if (!p->used_for_reference)

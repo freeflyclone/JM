@@ -6,3 +6,6 @@
 *.264
 .vs/
 *.ilk
+bin/ldecod.lib
+ldecod/Debug_x64_vc11/
+ldecod/Release_x64_vc11/
