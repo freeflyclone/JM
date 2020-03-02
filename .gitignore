@@ -6,6 +6,7 @@
 *.264
 .vs/
 *.ilk
+*.bak
 bin/ldecod.lib
 ldecod/Debug_x64_vc11/
 ldecod/Release_x64_vc11/
